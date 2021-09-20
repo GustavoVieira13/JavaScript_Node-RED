@@ -1,0 +1,56 @@
+[
+    {
+        "id": "9f07d93d2e230c3c",
+        "type": "tab",
+        "label": "helloworld",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "1efcdd5841673b4e",
+        "type": "http in",
+        "z": "9f07d93d2e230c3c",
+        "name": "",
+        "url": "/hello",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "3ba6826e1b2d5e9c"
+            ]
+        ]
+    },
+    {
+        "id": "3ba6826e1b2d5e9c",
+        "type": "template",
+        "z": "9f07d93d2e230c3c",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html>\n    <head>\n        <link rel=\"stylesheet\" href=\"//cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/slate/bootstrap.min.css\" integrity=\"sha384-8iuq0iaMHpnH2vSyvZMSIqQuUnQA7QM+f6srIdlgBrTSEyd//AWNMyEaSF2yPzNQ\" crossorigin=\"anonymous\">\n    </head>\n<body>\n\n<h1>Hello World</h1>\n<p>My first paragraph.</p>\n\n</body>\n</html>",
+        "output": "str",
+        "x": 250,
+        "y": 60,
+        "wires": [
+            [
+                "b2311b618b93b6e8"
+            ]
+        ]
+    },
+    {
+        "id": "b2311b618b93b6e8",
+        "type": "http response",
+        "z": "9f07d93d2e230c3c",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 390,
+        "y": 60,
+        "wires": []
+    }
+]
