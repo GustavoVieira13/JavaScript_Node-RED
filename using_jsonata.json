@@ -1,0 +1,55 @@
+[
+    {
+        "id": "f2f9fb0265f9dfa9",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "550c63a4ea876f8e",
+        "type": "inject",
+        "z": "f2f9fb0265f9dfa9",
+        "name": "Inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "Eat!",
+        "payload": "{\"payload\":\"Ice cream\",\"flavor\":\"Butterscotch\",\"toppings\":\"Butterscotch nuts\"}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "4962dbba805a61e3"
+            ]
+        ]
+    },
+    {
+        "id": "4962dbba805a61e3",
+        "type": "debug",
+        "z": "f2f9fb0265f9dfa9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.toppings",
+        "targetType": "jsonata",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 280,
+        "y": 60,
+        "wires": []
+    }
+]
