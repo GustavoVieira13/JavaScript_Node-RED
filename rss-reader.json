@@ -1,0 +1,177 @@
+[
+    {
+        "id": "317828cd86b09b5e",
+        "type": "tab",
+        "label": "RSS-Reader",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "0af686eb32dc287a",
+        "type": "feedparse",
+        "z": "317828cd86b09b5e",
+        "name": "espn",
+        "url": "https://www.espn.com/espn/rss/news",
+        "interval": "1",
+        "x": 70,
+        "y": 80,
+        "wires": [
+            [
+                "9d64a70db38c5a26",
+                "ee20168934fbb554"
+            ]
+        ]
+    },
+    {
+        "id": "9d64a70db38c5a26",
+        "type": "debug",
+        "z": "317828cd86b09b5e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 240,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "ee20168934fbb554",
+        "type": "switch",
+        "z": "317828cd86b09b5e",
+        "name": "",
+        "property": "article.description",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "warriors",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "golden state",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "curry",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "kerr",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 241,
+        "y": 105,
+        "wires": [
+            [
+                "44320822fd3c73e8"
+            ],
+            [
+                "44320822fd3c73e8"
+            ],
+            [
+                "44320822fd3c73e8"
+            ],
+            [
+                "44320822fd3c73e8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b6b61018957ef645",
+        "type": "protonmail",
+        "z": "317828cd86b09b5e",
+        "name": "gustavommrv@protonmail.com",
+        "dname": "protonmail",
+        "x": 410,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "44320822fd3c73e8",
+        "type": "change",
+        "z": "317828cd86b09b5e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "article.title",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "\"RSS Alert\" <rss-alert@noreply.com>",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 80,
+        "wires": [
+            [
+                "2228f7d6f8d49dfb"
+            ]
+        ]
+    },
+    {
+        "id": "2228f7d6f8d49dfb",
+        "type": "template",
+        "z": "317828cd86b09b5e",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{article.description}}\n\n<br>Read more: {{article.link}}",
+        "output": "str",
+        "x": 420,
+        "y": 140,
+        "wires": [
+            [
+                "b6b61018957ef645"
+            ]
+        ]
+    },
+    {
+        "id": "1b8347705f12bce3",
+        "type": "feedparse",
+        "z": "317828cd86b09b5e",
+        "name": "fox",
+        "url": "https://api.foxsports.com/v1/rss",
+        "interval": "1",
+        "x": 70,
+        "y": 140,
+        "wires": [
+            [
+                "ee20168934fbb554"
+            ]
+        ]
+    }
+]
