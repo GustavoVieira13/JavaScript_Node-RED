@@ -1,0 +1,72 @@
+[
+    {
+        "id": "f710cd709e307304",
+        "type": "tab",
+        "label": "Hello World",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e5bedb2d2a8e21c7",
+        "type": "inject",
+        "z": "f710cd709e307304",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "ecf1989e48cce6b5"
+            ]
+        ]
+    },
+    {
+        "id": "240cbdcbd6570660",
+        "type": "debug",
+        "z": "f710cd709e307304",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "ecf1989e48cce6b5",
+        "type": "function",
+        "z": "f710cd709e307304",
+        "name": "",
+        "func": "msg.payload = \"Hello World\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 60,
+        "wires": [
+            [
+                "240cbdcbd6570660"
+            ]
+        ]
+    }
+]
