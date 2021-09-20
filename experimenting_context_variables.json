@@ -1,0 +1,360 @@
+[
+    {
+        "id": "d9e2ae759ed2138d",
+        "type": "tab",
+        "label": "Experimentando variável de contexto",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "aa788d8528c096e5",
+        "type": "inject",
+        "z": "d9e2ae759ed2138d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "7c95a105751b21d0"
+            ]
+        ],
+        "info": "A variável de contexto armazena dados dentro do nó não importando quantas vezes o nó é disparado.\n"
+    },
+    {
+        "id": "b8e832cac99814af",
+        "type": "debug",
+        "z": "d9e2ae759ed2138d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "7c95a105751b21d0",
+        "type": "function",
+        "z": "d9e2ae759ed2138d",
+        "name": "Contador",
+        "func": "//inicializa o contador em 0 caso ele ainda não tenha inicializado\n//caso sim, é inicializada pelo último valor armazenado\nvar count = context.get('count')||0;\ncount ++;\n//armazena o valor\ncontext.set('count',count);\n//atribui a contagem ao objeto da mensagem de saída;\nmsg.count = count;\nglobal.set('poll', count);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 60,
+        "wires": [
+            [
+                "b8e832cac99814af"
+            ]
+        ]
+    },
+    {
+        "id": "f3a6ea11df5c2509",
+        "type": "inject",
+        "z": "d9e2ae759ed2138d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "poll",
+        "payloadType": "global",
+        "x": 270,
+        "y": 180,
+        "wires": [
+            [
+                "b8e832cac99814af"
+            ]
+        ],
+        "info": "Checa o valor armazenado."
+    },
+    {
+        "id": "e0c76c752619f625",
+        "type": "switch",
+        "z": "d9e2ae759ed2138d",
+        "name": "Checando condições",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "count",
+                "vt": "flow"
+            },
+            {
+                "t": "gte",
+                "v": "count",
+                "vt": "flow"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 560,
+        "y": 340,
+        "wires": [
+            [
+                "743d88d21c2e40ef",
+                "33a68e27297049db"
+            ],
+            [
+                "b822fb8bf6e6722b"
+            ]
+        ]
+    },
+    {
+        "id": "743d88d21c2e40ef",
+        "type": "function",
+        "z": "d9e2ae759ed2138d",
+        "name": "Incrementador",
+        "func": "msg.payload = msg.payload+1;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 260,
+        "wires": [
+            [
+                "e0c76c752619f625"
+            ]
+        ]
+    },
+    {
+        "id": "516691de7865de0d",
+        "type": "change",
+        "z": "d9e2ae759ed2138d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "count",
+                "pt": "flow",
+                "to": "poll",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 300,
+        "wires": [
+            [
+                "e0c76c752619f625"
+            ]
+        ]
+    },
+    {
+        "id": "439791682ec51fb6",
+        "type": "inject",
+        "z": "d9e2ae759ed2138d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 300,
+        "wires": [
+            [
+                "516691de7865de0d"
+            ]
+        ]
+    },
+    {
+        "id": "e95bf7f97232faae",
+        "type": "debug",
+        "z": "d9e2ae759ed2138d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "b822fb8bf6e6722b",
+        "type": "template",
+        "z": "d9e2ae759ed2138d",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Contagem: {{payload}}",
+        "output": "str",
+        "x": 760,
+        "y": 380,
+        "wires": [
+            [
+                "e95bf7f97232faae"
+            ]
+        ]
+    },
+    {
+        "id": "33a68e27297049db",
+        "type": "template",
+        "z": "d9e2ae759ed2138d",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Conte: {{payload}}",
+        "output": "str",
+        "x": 780,
+        "y": 300,
+        "wires": [
+            [
+                "e95bf7f97232faae"
+            ]
+        ]
+    },
+    {
+        "id": "56f96a01b2b32bac",
+        "type": "debug",
+        "z": "d9e2ae759ed2138d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "d72eaeb54bb06223",
+        "type": "link in",
+        "z": "d9e2ae759ed2138d",
+        "name": "",
+        "links": [
+            "d88921cbf2035a49"
+        ],
+        "x": 35,
+        "y": 460,
+        "wires": [
+            [
+                "88b63dcc94264814"
+            ]
+        ]
+    },
+    {
+        "id": "be585791f8dd3fcd",
+        "type": "comment",
+        "z": "d9e2ae759ed2138d",
+        "name": "Conectado a outro flow",
+        "info": "",
+        "x": 120,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "88b63dcc94264814",
+        "type": "rbe",
+        "z": "d9e2ae759ed2138d",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 130,
+        "y": 460,
+        "wires": [
+            [
+                "5e5752008cd8b340"
+            ]
+        ]
+    },
+    {
+        "id": "5e5752008cd8b340",
+        "type": "delay",
+        "z": "d9e2ae759ed2138d",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "x": 280,
+        "y": 460,
+        "wires": [
+            [
+                "56f96a01b2b32bac"
+            ]
+        ]
+    }
+]
